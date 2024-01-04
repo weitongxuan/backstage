@@ -1,5 +1,11 @@
 # @backstage/plugin-linguist
 
+## 0.1.14-next.2
+
+### Patch Changes
+
+- 4f42918: Added alpha support for the New Frontend System (Declarative Integration)
+
 ## 0.1.14-next.1
 
 ### Patch Changes

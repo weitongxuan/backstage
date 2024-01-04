@@ -1,5 +1,17 @@
 # example-app-next
 
+## 0.0.5-next.2
+
+### Patch Changes
+
+- Updated dependencies
+  - @backstage/plugin-octopus-deploy@0.2.11-next.2
+  - @backstage/plugin-home@0.6.1-next.2
+  - @backstage/plugin-scaffolder-react@1.7.1-next.2
+  - @backstage/plugin-scaffolder@1.17.1-next.2
+  - @backstage/plugin-linguist@0.1.14-next.2
+  - @backstage/plugin-pagerduty@0.7.1-next.2
+
 ## 0.0.5-next.1
 
 ### Patch Changes

@@ -1,5 +1,12 @@
 # @backstage/plugin-stack-overflow
 
+## 0.1.24-next.2
+
+### Patch Changes
+
+- Updated dependencies
+  - @backstage/plugin-home-react@0.1.7-next.2
+
 ## 0.1.24-next.1
 
 ### Patch Changes

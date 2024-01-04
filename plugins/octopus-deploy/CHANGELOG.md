@@ -1,5 +1,11 @@
 # @backstage/plugin-octopus-deploy
 
+## 0.2.11-next.2
+
+### Patch Changes
+
+- 7d96ba8: added install path and fixed import on plugin-octopus-deploy
+
 ## 0.2.11-next.1
 
 ### Patch Changes
