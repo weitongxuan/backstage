@@ -101,3 +101,15 @@ catalog:
     #   target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/acme-corp.yaml
     #   rules:
     #     - allow: [User, Group]
+kubernetes:
+  serviceLocatorMethod:
+    type: 'multiTenant'
+  clusterLocatorMethods:
+    - type: 'config'
+      clusters:
+        - url: https://observ-dev-nmct6kgq.hcp.southeastasia.azmk8s.io:443
+          name: dev
+          authProvider: 'serviceAccount'
+          skipTLSVerify: true
+          skipMetricsLookup: true
+          serviceAccountToken: bfwn4z0dtti3v3hvxig8uz1bc6hapoip1fcd2enexpbsps3jlas6ykwraj8eydyzzs5wilnusk4s0m91ybixy3kubg7nvk8a7psd55cc9s62vn8gah3ql0snng601y13

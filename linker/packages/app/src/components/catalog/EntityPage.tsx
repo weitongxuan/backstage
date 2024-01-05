@@ -1,5 +1,7 @@
 import React from 'react';
 import { Button, Grid } from '@material-ui/core';
+import { EntityKubernetesContent } from '@backstage/plugin-kubernetes';
+
 import {
   EntityApiDefinitionCard,
   EntityConsumedApisCard,
@@ -182,6 +184,10 @@ const websiteEntityPage = (
   <EntityLayout>
     <EntityLayout.Route path="/" title="Overview">
       {overviewContent}
+    </EntityLayout.Route>
+
+    <EntityLayout.Route path="/kubernetes" title="Kubernetes">
+      <EntityKubernetesContent refreshIntervalMs={30000} />
     </EntityLayout.Route>
 
     <EntityLayout.Route path="/ci-cd" title="CI/CD">
