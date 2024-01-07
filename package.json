@@ -1,3 +1,4 @@
+
 {
   "name": "root",
   "private": true,
@@ -117,6 +118,5 @@
     "*/yarn.lock": [
       "node ./scripts/verify-lockfile-duplicates --fix"
     ]
-  },
-  "packageManager": "yarn@3.2.3"
+  }
 }

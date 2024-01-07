@@ -2782,6 +2782,54 @@
     zod "^3.22.4"
     zod-to-json-schema "^3.21.4"
 
+"@backstage/plugin-azure-devops-backend@^0.5.0":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-azure-devops-backend/-/plugin-azure-devops-backend-0.5.0.tgz#f4b43b024b3f2e9ff911525e5d8b926b691eb26f"
+  integrity sha512-ynJYKbNa3X+tXfb6f6ecfJmMAX98+pcbnVrZtyNvelEyDHI5c2P0UqAyTPEFl2wyWsRFeBqFLfkeV1dSPeBQCw==
+  dependencies:
+    "@backstage/backend-common" "^0.20.0"
+    "@backstage/backend-plugin-api" "^0.6.8"
+    "@backstage/catalog-model" "^1.4.3"
+    "@backstage/config" "^1.1.1"
+    "@backstage/integration" "^1.8.0"
+    "@backstage/plugin-azure-devops-common" "^0.3.2"
+    "@backstage/plugin-catalog-common" "^1.0.19"
+    "@backstage/plugin-catalog-node" "^1.6.0"
+    "@types/express" "^4.17.6"
+    azure-devops-node-api "^11.0.1"
+    express "^4.17.1"
+    express-promise-router "^4.1.0"
+    lodash "^4.17.21"
+    mime-types "^2.1.27"
+    p-limit "^3.1.0"
+    winston "^3.2.1"
+    yn "^4.0.0"
+
+"@backstage/plugin-azure-devops-common@^0.3.2":
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-azure-devops-common/-/plugin-azure-devops-common-0.3.2.tgz#309a483999801d6a3d571f94d7ee00c3d369776c"
+  integrity sha512-icvOszlGIGrbQhZ1Qu94GWguds1acUvixCzjWFXQC9LkfGAxNVKijk6/cXcbdH1txvQkSSHebLsj6kobHfl8Zg==
+
+"@backstage/plugin-azure-devops@^0.3.10":
+  version "0.3.10"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-azure-devops/-/plugin-azure-devops-0.3.10.tgz#ea22534f69283be1413d9a8b82449b97325db7aa"
+  integrity sha512-AtfPYTpX/un3sZjgzNs96eBBqq2NlUvYzU8mRituxEWucHwaGLOXZyHv3YlJMzRyyG9iahZStwnwi8uToybtqg==
+  dependencies:
+    "@backstage/catalog-model" "^1.4.3"
+    "@backstage/core-components" "^0.13.9"
+    "@backstage/core-plugin-api" "^1.8.1"
+    "@backstage/errors" "^1.2.3"
+    "@backstage/plugin-azure-devops-common" "^0.3.2"
+    "@backstage/plugin-catalog-react" "^1.9.2"
+    "@backstage/theme" "^0.5.0"
+    "@material-ui/core" "^4.12.2"
+    "@material-ui/icons" "^4.9.1"
+    "@material-ui/lab" "4.0.0-alpha.61"
+    "@types/react" "^16.13.1 || ^17.0.0"
+    humanize-duration "^3.27.0"
+    luxon "^3.0.0"
+    react-use "^17.2.4"
+
 "@backstage/plugin-catalog-backend-module-scaffolder-entity-model@^0.1.5":
   version "0.1.5"
   resolved "https://registry.yarnpkg.com/@backstage/plugin-catalog-backend-module-scaffolder-entity-model/-/plugin-catalog-backend-module-scaffolder-entity-model-0.1.5.tgz#9ac6beb3c67bc40f3acfcef269bc5eb370bb803b"
@@ -8485,7 +8533,7 @@
   resolved "https://registry.yarnpkg.com/@types/range-parser/-/range-parser-1.2.7.tgz#50ae4353eaaddc04044279812f52c8c65857dbcb"
   integrity sha512-hKormJbkJqzQGhziax5PItDUTMAM9uE2XXQmM37dyd4hVM+5aVl7oVxMVUiVQn2oCQFN/LKCZdvSM0pFRqbSmQ==
 
-"@types/react-dom@*", "@types/react-dom@<18.0.0":
+"@types/react-dom@*", "@types/react-dom@<18.0.0", "@types/react-dom@^17":
   version "17.0.25"
   resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-17.0.25.tgz#e0e5b3571e1069625b3a3da2b279379aa33a0cb5"
   integrity sha512-urx7A7UxkZQmThYA4So0NelOVjx3V4rNFVJwp0WZlbIK5eM4rNJDiN3R/E9ix0MBh6kAEojk/9YL+Te6D9zHNA==
@@ -9320,6 +9368,7 @@ anymatch@^3.0.3, anymatch@~3.1.2:
     "@backstage/core-plugin-api" "^1.8.1"
     "@backstage/integration-react" "^1.1.22"
     "@backstage/plugin-api-docs" "^0.10.2"
+    "@backstage/plugin-azure-devops" "^0.3.10"
     "@backstage/plugin-catalog" "^1.16.0"
     "@backstage/plugin-catalog-common" "^1.0.19"
     "@backstage/plugin-catalog-graph" "^0.3.2"
@@ -14349,7 +14398,7 @@ human-signals@^2.1.0:
   resolved "https://registry.yarnpkg.com/human-signals/-/human-signals-2.1.0.tgz#dc91fcba42e4d06e4abaed33b3e7a3c02f514ea0"
   integrity sha512-B4FFZ6q/T2jhhksgkbEW3HBvWIfDW85snkQgawt07S7J5QXTk6BkNV+0yAeZrM5QpMAdYlocGoljn0sJ/WQkFw==
 
-humanize-duration@^3.25.1:
+humanize-duration@^3.25.1, humanize-duration@^3.27.0:
   version "3.31.0"
   resolved "https://registry.yarnpkg.com/humanize-duration/-/humanize-duration-3.31.0.tgz#a0384d22555024cd17e6e9f8561540d37756bf4c"
   integrity sha512-fRrehgBG26NNZysRlTq1S+HPtDpp3u+Jzdc/d5A4cEzOD86YLAkDaJyJg8krSdCi7CJ+s7ht3fwRj8Dl+Btd0w==

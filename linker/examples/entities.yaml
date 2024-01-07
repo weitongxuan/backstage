@@ -14,6 +14,8 @@ metadata:
   name: example-website
   annotations:
     backstage.io/kubernetes-id: value
+    dev.azure.com/project: observ
+    dev.azure.com/build-definition: "(Deploy) [Deployment] staging"
 spec:
   type: website
   lifecycle: experimental
@@ -41,3 +43,18 @@ spec:
     message ExampleMessage {
       string example = 1;
     };
+---
+# https://backstage.io/docs/features/software-catalog/descriptor-format#kind-component
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: example-website2
+  annotations:
+    backstage.io/kubernetes-id: value
+spec:
+  type: website
+  lifecycle: experimental
+  owner: guests
+  system: examples
+  providesApis: [example-grpc-api]
+---
