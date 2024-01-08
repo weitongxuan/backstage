@@ -1,3 +1,22 @@
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: db1
+  description: Stores 
+spec:
+  type: database
+  owner: guests
+  host: "192.168.0.11:3306"
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: db2
+  description: Stores 
+spec:
+  type: database
+  owner: guests
+  host: "192.168.0.112:3306"
 ---
 # https://backstage.io/docs/features/software-catalog/descriptor-format#kind-system
 apiVersion: backstage.io/v1alpha1

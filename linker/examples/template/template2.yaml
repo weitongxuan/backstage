@@ -1,74 +1,49 @@
+# yaml-language-server: $schema=http://json-schema.org/draft-07/schema
+
 apiVersion: scaffolder.backstage.io/v1beta3
-# https://backstage.io/docs/features/software-catalog/descriptor-format#kind-template
 kind: Template
 metadata:
   name: simonTemplate
   title: Simon test123
-  description: An example template for the scaffolder that creates a simple Node.js service
+  description: An example template
 spec:
   owner: user:guest
   type: service
-
   # These parameters are used to generate the input form in the frontend, and are
   # used to gather input data for the execution of the template.
   parameters:
-    - title: Fill in some steps
+    - title: Selet a DB
       required:
-        - name
+        - Entity
       properties:
-        name:
-          title: Name
+        Entity:
+          title: DB instance
           type: string
-          description: Unique name of the component
-          ui:autofocus: true
+          description: Entity of the component
+          ui:field: EntityPicker
           ui:options:
-            rows: 5
-    - title: Choose a location
-      required:
-        - repoUrl
-      properties:
-        repoUrl:
-          title: Repository Location
-          type: string
-          ui:field: RepoUrlPicker
-          ui:options:
-            allowedHosts:
-              - github.com
+            allowArbitraryValues: false
+            catalogFilter:
+              kind: [Resource]
 
-  # These steps are executed in the scaffolder backend, using data that we gathered
   # via the parameters above.
   steps:
     # Each step executes an action, in this case one templates files into the working directory.
     - id: fetch-base
       name: Fetch Base
-      action: fetch:template
+      action: catalog:fetch
       input:
-        url: ./content
-        values:
-          name: ${{ parameters.name }}
+        entityRef: ${{ parameters.Entity }}
+    - id: log
+      name: Log
+      action: debug:log
+      input:
+        message: ${{ steps['fetch-base'].output.entity.spec.host }}
 
-    # This step publishes the contents of the working directory to GitHub.
-    - id: publish
-      name: Publish
-      action: publish:github
-      input:
-        allowedHosts: ['github.com']
-        description: This is ${{ parameters.name }}
-        repoUrl: ${{ parameters.repoUrl }}
-
-    # The final step is to register our new component in the catalog.
-    - id: register
-      name: Register
-      action: catalog:register
-      input:
-        repoContentsUrl: ${{ steps['publish'].output.repoContentsUrl }}
-        catalogInfoPath: '/catalog-info.yaml'
 
   # Outputs are displayed to the user after a successful execution of the template.
   output:
     links:
-      - title: Repository
-        url: ${{ steps['publish'].output.remoteUrl }}
       - title: Open in catalog
         icon: catalog
-        entityRef: ${{ steps['register'].output.entityRef }}
+        entityRef: ${{ steps['fetch-base'].output.entity.neme }}
