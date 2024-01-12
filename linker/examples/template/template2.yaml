@@ -39,6 +39,11 @@ spec:
       action: debug:log
       input:
         message: ${{ steps['fetch-base'].output.entity.spec.host }}
+    - id: test
+      name: test
+      action: azcli:run
+      input:
+        command: ["hello" , "aaaa"]
 
 
   # Outputs are displayed to the user after a successful execution of the template.

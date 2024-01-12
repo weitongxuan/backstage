@@ -6,7 +6,7 @@ metadata:
 spec:
   type: database
   owner: guests
-  host: "192.168.0.11:3306"
+  host: "192.168.0.153:3306"
 ---
 apiVersion: backstage.io/v1alpha1
 kind: Resource
@@ -26,6 +26,20 @@ metadata:
 spec:
   owner: guests
 ---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: env-dev
+spec:
+  type: environment
+  owner: guests
+  lifecycle: experimental
+  dependsOn:
+    - resource:default/db1
+    - resource:default/db2
+  
+
+---
 # https://backstage.io/docs/features/software-catalog/descriptor-format#kind-component
 apiVersion: backstage.io/v1alpha1
 kind: Component
@@ -39,41 +53,3 @@ spec:
   type: website
   lifecycle: experimental
   owner: guests
-  system: examples
-  providesApis: [example-grpc-api]
----
-# https://backstage.io/docs/features/software-catalog/descriptor-format#kind-api
-apiVersion: backstage.io/v1alpha1
-kind: API
-metadata:
-  name: example-grpc-api
-spec:
-  type: grpc
-  lifecycle: experimental
-  owner: guests
-  system: examples
-  definition: |
-    syntax = "proto3";
-
-    service Exampler {
-      rpc Example (ExampleMessage) returns (ExampleMessage) {};
-    }
-
-    message ExampleMessage {
-      string example = 1;
-    };
----
-# https://backstage.io/docs/features/software-catalog/descriptor-format#kind-component
-apiVersion: backstage.io/v1alpha1
-kind: Component
-metadata:
-  name: example-website2
-  annotations:
-    backstage.io/kubernetes-id: value
-spec:
-  type: website
-  lifecycle: experimental
-  owner: guests
-  system: examples
-  providesApis: [example-grpc-api]
----
