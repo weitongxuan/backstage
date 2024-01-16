@@ -36,7 +36,7 @@ spec:
   lifecycle: experimental
   dependsOn:
     - resource:default/db1
-    - resource:default/db2
+    - resource:default/observ-k8s-dev
   
 
 ---
@@ -53,3 +53,6 @@ spec:
   type: website
   lifecycle: experimental
   owner: guests
+  dependsOn:
+    - resource:default/db1
+    - resource:default/observ-k8s-dev
