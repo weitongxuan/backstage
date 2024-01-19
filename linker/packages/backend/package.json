@@ -39,7 +39,6 @@
     "@backstage/plugin-search-backend-node": "^1.2.12",
     "@backstage/plugin-techdocs-backend": "^1.9.1",
     "@internal/plugin-catalog-backend-module-azure-resource": "^0.1.0",
-    "@internal/plugin-catalog-backend-module-xxx": "^0.1.0",
     "app": "link:../app",
     "better-sqlite3": "^9.0.0",
     "dockerode": "^3.3.1",

@@ -2498,6 +2498,24 @@
     history "^5.0.0"
     i18next "^22.4.15"
 
+"@backstage/dev-utils@^1.0.25":
+  version "1.0.25"
+  resolved "https://registry.yarnpkg.com/@backstage/dev-utils/-/dev-utils-1.0.25.tgz#32e5b09dd242ca1ebd21baf2afad44445397ee9f"
+  integrity sha512-7Bw2F2vLF0mCeiTC3KTdJ6+u26Q3omJtYMegLT5TCe57bvwDTSHjeLO4JO0CgmPyNTE6AJ2vjSRgSfSO+DMgNg==
+  dependencies:
+    "@backstage/app-defaults" "^1.4.6"
+    "@backstage/catalog-model" "^1.4.3"
+    "@backstage/core-app-api" "^1.11.2"
+    "@backstage/core-components" "^0.13.9"
+    "@backstage/core-plugin-api" "^1.8.1"
+    "@backstage/integration-react" "^1.1.22"
+    "@backstage/plugin-catalog-react" "^1.9.2"
+    "@backstage/theme" "^0.5.0"
+    "@material-ui/core" "^4.12.2"
+    "@material-ui/icons" "^4.9.1"
+    "@types/react" "^16.13.1 || ^17.0.0"
+    react-use "^17.2.4"
+
 "@backstage/e2e-test-utils@^0.1.0":
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/@backstage/e2e-test-utils/-/e2e-test-utils-0.1.0.tgz#6be33f581b4493d568e9fd7674a9a5804f354482"
@@ -9493,6 +9511,7 @@ anymatch@^3.0.3, anymatch@~3.1.2:
     "@backstage/plugin-techdocs-react" "^1.1.14"
     "@backstage/plugin-user-settings" "^0.7.14"
     "@backstage/theme" "^0.5.0"
+    "@internal/plugin-test001" "^0.1.0"
     "@material-ui/core" "^4.12.2"
     "@material-ui/icons" "^4.9.1"
     history "^5.0.0"
