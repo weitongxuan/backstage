@@ -90,6 +90,10 @@ catalog:
       target: ../../examples/template/template2.yaml
       rules:
         - allow: [Template]
+    - type: file
+      target: ../../examples/template/deploy.yaml
+      rules:
+        - allow: [Template]
 
     # Local example organizational data
     - type: file
@@ -99,7 +103,9 @@ catalog:
 
     ## Uncomment these lines to add more example data
     - type: url
-      target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all.yaml
+      target: https://github.com/weitongxuan/backstagetest1/blob/master/values/env/simon-demo0014.yaml
+
+
 
     ## Uncomment these lines to add an example org
     - type: url
@@ -118,6 +124,16 @@ kubernetes:
           skipTLSVerify: true
           skipMetricsLookup: true
           serviceAccountToken: bfwn4z0dtti3v3hvxig8uz1bc6hapoip1fcd2enexpbsps3jlas6ykwraj8eydyzzs5wilnusk4s0m91ybixy3kubg7nvk8a7psd55cc9s62vn8gah3ql0snng601y13
+    - type: "config"
+      clusters:
+        - url: https://backstagetest1-fcjos1p2.hcp.southeastasia.azmk8s.io:443
+          name: backstage
+          authProvider: "serviceAccount"
+          skipTLSVerify: true
+          skipMetricsLookup: true
+          serviceAccountToken: duqrr8iks15a5rggdwj08wb9u9zjj7x6f9wz5if36n45ip6vaxnghf9m5k3r8hwns2a5xouf4ohgw32h5dhuoizc56ezpbz5t7jt94naebps1013y5uh0hsjex72ptxo
+
+  
 azureDevOps:
   host: dev.azure.com
   token: k3qjhetipbdvfhbt3yhsxt3fvewrxg4x3nrqj3ttq5aoamkoas4a

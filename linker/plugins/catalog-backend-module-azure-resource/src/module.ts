@@ -32,13 +32,41 @@ export class azureProvider implements EntityProvider {
     this.connection = connection;
   }
 
-  /** [4] */
-  async run(): Promise<void> {
-    if (!this.connection) {
-      throw new Error('Not initialized');
-    }
+  async getDNS() {
+    const output = await execSync(
+      'az network dns record-set a list --resource-group=rg-observteam-dev-001 --zone-name "observ.linkervision.ai" --subscription 38326ad4-514a-48cc-9d3a-3925ac8469a2',
+    );
+    const result = JSON.parse(output);
 
-    // Run shell command
+    const entities: Entity[] = result.map((item: any) => {
+      return {
+        apiVersion: 'backstage.io/v1alpha1',
+        kind: 'Resource',
+        metadata: {
+          name: item.name,
+          annotations: {
+            [ANNOTATION_LOCATION]: `id:${item.id}`,
+            [ANNOTATION_ORIGIN_LOCATION]: `id:${item.id}`,
+          },
+          links: [
+            {
+              title: 'Azure Portal',
+              url: `https://portal.azure.com/#@linkervision.com/resource${item.id}`,
+            },
+          ],
+        },
+        spec: {
+          type: 'DNS Record',
+          owner: 'guests',
+          config: item,
+        },
+      };
+    });
+
+    return entities;
+  }
+
+  async getk8s() {
     const output = await execSync(
       'az resource list --subscription=38326ad4-514a-48cc-9d3a-3925ac8469a2 --resource-type=Microsoft.ContainerService/managedClusters',
     );
@@ -69,6 +97,18 @@ export class azureProvider implements EntityProvider {
       };
     });
 
+    return entities;
+  }
+
+  /** [4] */
+  async run(): Promise<void> {
+    if (!this.connection) {
+      throw new Error('Not initialized');
+    }
+
+    // Run shell command
+
+    const entities = [...(await this.getk8s()), ...(await this.getDNS())];
     /** [6] */
     await this.connection.applyMutation({
       type: 'full',

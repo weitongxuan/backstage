@@ -3,36 +3,36 @@
 apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
-  name: demositeenv
-  title: Demo site Enviroment
-  description: Demo site Enviroment
+  name: demoSiteDeploy
+  title: Demo site Deployment
+  description: Demo site Deployment
 spec:
   owner: user:guest
-  type: service
+  type: website
   # These parameters are used to generate the input form in the frontend, and are
   # used to gather input data for the execution of the template.
   parameters:
-    - title: Selet a k8s
+    - title: Selet a ENV
       required:
         - Entity
       properties:
-        siteName:
-          title: Site Name
+        msg:
+          title: Welcome Message
           type: string
-          description: Unique name of the component
+          description: Welcome Message
           ui:autofocus: true
           ui:options:
             rows: 5
         Entity:
-          title: k8s instance
+          title: environment
           type: string
           description: Entity of the component
           ui:field: EntityPicker
           ui:options:
             allowArbitraryValues: false
             catalogFilter:
-              kind: [Resource]
-              spec.type: [k8s]
+              kind: [Component]
+              spec.type: [environment]
 
   # via the parameters above.
   steps:
@@ -41,44 +41,52 @@ spec:
       name: fetch
       action: catalog:fetch
       input:
-        entityRef	:  ${{ parameters.Entity }}      
-    - id: create-ns
-      name: Create namespace
-      action: kubectl:create:ns
+        entityRef	:  ${{ parameters.Entity }}
+    - id: fetchK8S
+      name: fetchK8S
+      action: catalog:fetch
       input:
-        k8sName:  ${{ steps.fetch.output.entity.metadata.name }}
-        name:  ${{ parameters.siteName }}
-    - id: create-dns
-      name: Create DNS
+        entityRef	:  ${{ steps.fetch.output.entity.spec.k8s }} 
+    - id: kubeconfig
+      name: Get kubeconfig
       action: cli:run
       input:
-        command: az network dns record-set a add-record --ipv4-address 20.44.197.82 --record-set-name ${{ parameters.siteName }} --resource-group rg-observteam-dev-001 --zone-name observ.linkervision.ai --subscription 38326ad4-514a-48cc-9d3a-3925ac8469a2 --if-none-match
-
+        command: az aks get-credentials --resource-group rg-devops-dev-001 --name ${{ steps.fetchK8S.output.entity.metadata.name }} -f current.yaml
     - id: clone
       name: clone
       action: git:clone
       input:
         repoUrl: https://github.com/weitongxuan/backstagetest1
-    - id: createEnvFile
-      name: createEnvFile
+    - id: deploy
+      name: deploy
+      action: cli:run
+      input:
+        command: helm install ${{ steps.fetch.output.entity.metadata.name }} backstagetest1/helm/my-site --kubeconfig current.yaml -n ${{ steps.fetch.output.entity.spec.namespace }} --set msg="${{ parameters.msg }}" --set dns="${{ steps.fetch.output.entity.spec.dns }}"
+
+    - id: createConfigFile
+      name: createConfigFile
       action: roadiehq:utils:fs:write
       input:
-        path: backstagetest1/values/env/${{ parameters.siteName }}.yaml
+        path: backstagetest1/values/deploy/${{ steps.fetch.output.entity.metadata.name }}.yaml
         content: |
           apiVersion: backstage.io/v1alpha1
           kind: Component
           metadata:
-            name: ${{ parameters.siteName }}
+            name: ${{ steps.fetch.output.entity.metadata.name }}-deploy
+            annotations:
+              backstage.io/kubernetes-label-selector: 'app=nginx,provider=backstage'
+              backstage.io/kubernetes-namespace: ${{ steps.fetch.output.entity.spec.namespace }}
+            links:
+            - url: http://${{ steps.fetch.output.entity.spec.dns }}
+              title: ${{ steps.fetch.output.entity.spec.dns }}
+              icon: dashboard
           spec:
-            type: environment
+            type: website
             owner: guests
-            lifecycle: experimental
-            dns: ${{ parameters.siteName }}.observ.linkervision.ai
-            k8s: ${{ parameters.Entity }}
-            namespace: ${{ parameters.siteName }}
+            lifecycle: development
+            msg: ${{ parameters.msg }}
             dependsOn:
               - ${{ parameters.Entity }}
-              - resource:default/${{ parameters.siteName }}
     - id: add
       name: add
       action: git
@@ -94,7 +102,7 @@ spec:
         command: commit 
         args:
           - "-m"
-          - "add env ${{ parameters.siteName }}"
+          - "add deploy value ${{ steps.fetch.output.entity.metadata.name }}"
         workingDirectory: "./backstagetest1"
     - id: push
       name: push
@@ -107,6 +115,7 @@ spec:
       action: catalog:register
       input:
         repoContentsUrl: https://github.com/weitongxuan/backstagetest1/blob/master/
-        catalogInfoPath: values/env/${{ parameters.siteName }}.yaml
+        catalogInfoPath: values/deploy/${{ steps.fetch.output.entity.metadata.name }}.yaml
+
   # Outputs are displayed to the user after a successful execution of the template.
 
